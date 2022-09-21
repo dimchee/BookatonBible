@@ -13,4 +13,4 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: Src/Main.pdf
+          files: Main.pdf
