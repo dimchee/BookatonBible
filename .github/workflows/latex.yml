@@ -1,4 +1,4 @@
-name: Detect Latex Issue
+name: Detect Latex Code in issue, And Commit it
 
 on:
   issue_comment:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Add to file
-        run: echo ${{ github.event.comment.body }} >> ${{ format("Src/{0}.tex", github.event.issue.title) }}
+      - name: Add LaTeX
+        run: echo ${{ github.event.comment.body }} >> ${{ format('Src/{0}.tex', github.event.issue.title) }}
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
