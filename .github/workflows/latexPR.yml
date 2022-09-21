@@ -22,7 +22,7 @@ jobs:
           EOF
           echo "OLD:"
           cat $FILE
-          awk '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE > $FILE
+          awk '/\\\\begin{document}/{f=1; next} /\\\\end{document}/{f=0} f' $FILE > $FILE
           echo "NEW:"
           cat $FILE
           echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
