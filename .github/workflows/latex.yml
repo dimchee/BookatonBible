@@ -1,0 +1,19 @@
+name: Detect Latex Issue
+
+on:
+  issue_comment:
+    types:
+      - created
+      - edited
+
+jobs:
+  detect-latex:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'LaTeX' && startsWith(github.event.comment.body, '\documentclass{')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Add to file
+        run: echo ${{ github.event.comment.body }} >> ${{ format("Src/{0}.tex", github.event.issue.title) }}
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v4
