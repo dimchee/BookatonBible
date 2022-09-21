@@ -9,7 +9,7 @@ on:
 jobs:
   detect-latex:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'LaTeX' && startsWith(github.event.comment.body, '\documentclass{')
+    if: startsWith(github.event.comment.body, '\documentclass{')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
