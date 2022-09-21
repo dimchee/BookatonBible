@@ -12,12 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Add LaTeX
+        env:
+          FILE: ${{ format('Src/Pages/{0}.tex', github.event.issue.title) }}
         run: |
           mkdir -p Src/Pages
           touch Src/Pages.tex
-          cat > ${{ format('Src/Pages/{0}.tex', github.event.issue.title) }} << EOF
+          cat > $FILE << EOF
           ${{ github.event.comment.body }}
           EOF
+          awk '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE > $FILE
           echo ${{ format('\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
           | cat Src/Pages.tex - | sort -u > Src/Pages.tex
       - name: Create PR
