@@ -14,6 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Add LaTeX
-        run: echo ${{ github.event.comment.body }} >> ${{ format('Src/{0}.tex', github.event.issue.title) }}
+        run: |
+          cat > ${{ format('Src/{0}.tex', github.event.issue.title) }} << EOF
+          ${{ github.event.comment.body }}
+          EOF
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
