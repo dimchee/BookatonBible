@@ -1,0 +1,16 @@
+name: Build LaTeX, and Release Book
+on: [push]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: Src/Main.tex
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Src/Main.pdf
