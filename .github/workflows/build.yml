@@ -1,5 +1,5 @@
 name: Build LaTeX, Upload Book
-on: [push]
+on: push
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -10,8 +10,16 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: Src/Main.tex
-      - name: Upload Book
-        uses: actions/upload-artifact@v3
+      # - name: Upload Book
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Knjiga.pdf
+      #     path: Main.pdf
+      - name: Release Book
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          name: Knjiga.pdf
-          path: Main.pdf
+          # repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Current version of Book"
+          files: Main.pdf
