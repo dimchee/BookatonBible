@@ -19,7 +19,7 @@ jobs:
           cat > $FILE << EOF
           ${{ github.event.comment.body }}
           EOF
-          Scripts/updateRawPage.sh
+          Scripts/updateRawPage.sh $FILE
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
         with:
