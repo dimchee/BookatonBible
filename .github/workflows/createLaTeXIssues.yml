@@ -1,6 +1,6 @@
 name: Create Issues from Parts
 on:
-  workflow_call:
+  workflow_dispatch:
 jobs:
   split-book:
     runs-on: ubuntu-latest
