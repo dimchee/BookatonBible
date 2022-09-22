@@ -1,0 +1,15 @@
+name: Create Issues from Parts
+on:
+  workflow_call:
+jobs:
+  split-book:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create Issues from Parts
+        run: |
+          for i in $(ls Parts)
+          do
+            .github/scripts/createIssue.sh $i
+          done
