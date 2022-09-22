@@ -10,16 +10,13 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: Src/Main.tex
-      # - name: Upload Book
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: Knjiga.pdf
-      #     path: Main.pdf
+      - name: Rename PDF
+        run: mv Main.pdf Book.pdf
       - name: Release Book
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
-          prerelease: true
+          prerelease: false
           title: "Current version of Book"
-          files: Main.pdf
+          files: Book.pdf
