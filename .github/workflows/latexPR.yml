@@ -25,3 +25,6 @@ jobs:
           | cat Src/Pages.tex - | sort -u > Src/Pages.tex
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
+        with:
+          title: ${{ format('Add LaTeX of pages {0}', github.event.issue.title) }}
+          body: "Automated change, triggered by comment on Issue"
