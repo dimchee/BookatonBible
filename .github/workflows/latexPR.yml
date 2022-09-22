@@ -21,8 +21,8 @@ jobs:
           ${{ github.event.comment.body }}
           EOF
           awk -i inplace '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE
-          echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
-          | cat Src/Pages.tex - | sort -ur > Src/Pages.tex
+          # echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
+          # | cat Src/Pages.tex - | sort -ur > Src/Pages.tex
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
         with:
