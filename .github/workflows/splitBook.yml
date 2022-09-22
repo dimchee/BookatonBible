@@ -9,4 +9,4 @@ jobs:
     steps:
       - name: Hello
         run: echo "Hello :D"
-          echo ${{ json(github.event.issue) }}
+          echo ${{ toJson(github.event.issue) }}
