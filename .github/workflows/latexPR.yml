@@ -13,9 +13,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Get Comment
         run: |
-          cat > $COMMENT << EOF
+          COMMENT=$(cat << EOF
           ${{ github.event.comment.body }}
           EOF
+          )
       - name: Add LaTeX
         env:
           FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
