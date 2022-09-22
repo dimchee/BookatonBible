@@ -15,19 +15,11 @@ jobs:
         env:
           FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
         run: |
-          COMMENT=$(cat << EOF
+          mkdir -p Src/Pages
+          cat > $FILE << EOF
           ${{ github.event.comment.body }}
           EOF
-          )
-          mkdir -p Src/Pages
-          touch Src/Pages.tex
-          echo "Begin COMMENT"
-          echo $COMMENT
-          echo "End COMMENT"
-          echo $COMMENT > $FILE
-          awk -i inplace '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE
-          # echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
-          # | cat Src/Pages.tex - | sort -ur > Src/Pages.tex
+          Scripts/updateRawPage.sh
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
         with:
