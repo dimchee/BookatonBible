@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Update Pages.tex
-        run: Scripts/updatePagesTeX.sh
+        run: .github/scripts/updatePagesTeX.sh
       - name: Commit Change
         uses: EndBug/add-and-commit@v9
         with:

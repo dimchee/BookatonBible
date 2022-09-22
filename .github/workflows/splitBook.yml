@@ -1,0 +1,11 @@
+name: Split Book.pdf
+on:
+  issues:
+    types: edited
+jobs:
+  split-book:
+    runs-on: ubuntu-latest
+    if: github.event.issue.id == 1
+    steps:
+      - name: Hello
+        run: echo "Hello :D"
