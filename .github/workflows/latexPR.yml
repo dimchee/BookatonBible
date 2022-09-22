@@ -20,11 +20,7 @@ jobs:
           cat > $FILE << EOF
           ${{ github.event.comment.body }}
           EOF
-          echo "OLDFILE:" 
-          cat $FILE
           awk -i inplace '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE
-          echo "NEWFILE:" 
-          cat $FILE
           echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
           | cat Src/Pages.tex - | sort -u > Src/Pages.tex
       - name: Create PR
