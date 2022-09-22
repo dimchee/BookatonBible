@@ -5,7 +5,7 @@ on:
 jobs:
   split-book:
     runs-on: ubuntu-latest
-    if: github.event.issue.id == 1
+    if: github.event.issue.issue_number == 1
     steps:
       - name: Hello
         run: echo "Hello :D"
