@@ -11,13 +11,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Get Comment
+        run: |
+          cat > $COMMENT << EOF
+          ${{ github.event.comment.body }}
+          EOF
       - name: Add LaTeX
         env:
           FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
-          COMMENT: |
-            cat << EOF
-            ${{ github.event.comment.body }}
-            EOF
         run: |
           mkdir -p Src/Pages
           touch Src/Pages.tex
@@ -33,4 +34,4 @@ jobs:
         with:
           branch: ${{ format( 'page-fix/{0}', github.event.issue.title) }} 
           title: ${{ format( 'Add LaTeX of pages {0}', github.event.issue.title ) }}
-          body: "Automated change, triggered by $\LaTeX$ comment on Issue"
+          body: "Automated change, triggered by $\\LaTeX$ comment on Issue"
