@@ -2,7 +2,13 @@ Book=$1
 Step=$2
 Pages=$(pdftk "$Book" dump_data | grep "NumberOfPages" | cut -d " " -f2)
 
-mkdir -p Parts
+if [ -d Parts ]
+then
+    echo "Parts already exists :P"
+    exit 1 # fails if alread exists
+else
+    mkdir Parts
+fi
 
 for i in $(seq 0 $(($Pages / $Step)))
 do
