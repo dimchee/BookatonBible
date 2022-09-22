@@ -1,15 +1,8 @@
-Book='The Holy Bible - King James Version.pdf'
-Step=5
+Book=$1
+Step=$2
 Pages=$(pdftk "$Book" dump_data | grep "NumberOfPages" | cut -d " " -f2)
 
 mkdir -p Delovi
-
-# First delete all labels
-gh label list | awk -F '\t' '{ print $1 }' | xargs -I _ gh label delete --confirm '_'
-
-# Create labels for common things
-gh label create LaTeX --description "Potrebno je prekucati text u LaTeX" --color D93F0B
-gh label create Tikz  --description "Potrebno je pretvoriti sliku u LaTeX" --color E99695
 
 for i in $(seq 0 $(($Pages / $Step)))
 do
