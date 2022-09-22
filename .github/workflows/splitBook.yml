@@ -8,5 +8,6 @@ jobs:
     #if: github.event.issue.issue_number == 1
     steps:
       - name: Hello
-        run: echo "Hello :D"
-          echo ${{ toJson(github.event.issue) }}
+        run: |
+          echo "Hello :D"
+          echo '${{ toJson(github.event.issue) }}'
