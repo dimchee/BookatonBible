@@ -1,12 +1,21 @@
 name: Split Book.pdf
 on:
   issues:
-    types: edited
+    types: opened
 jobs:
   split-book:
     runs-on: ubuntu-latest
     if: github.event.issue.number == 1
     steps:
-      - name: Hello
-        run: |
-          echo "Hello :D"
+      - name: Install PDFtk
+        run: apt install pdftk
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Split to Pages
+        run: .github/scripts/splitBook.sh Book.pdf 5
+      - name: Remove Book.pdf
+        run: rm Book.pdf
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Remove Book.pdf, Add Parts'
