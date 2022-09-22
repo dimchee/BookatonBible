@@ -11,16 +11,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get Comment
+      - name: Add LaTeX
+        env:
+          FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
         run: |
           COMMENT=$(cat << EOF
           ${{ github.event.comment.body }}
           EOF
           )
-      - name: Add LaTeX
-        env:
-          FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
-        run: |
           mkdir -p Src/Pages
           touch Src/Pages.tex
           echo "Begin COMMENT"
