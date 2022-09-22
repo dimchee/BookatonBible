@@ -8,16 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Remove Pages.tex
-        run: rm Src/Pages.tex
-      - name: Create New Pages.tex
-        run: |
-          for i in $(ls Src/Pages)
-          do
-              printf '\input{Src/Pages/%s}\n' ${i%.*} >> Src/Pages.tex
-          done
+      - name: Update Pages.tex
+        run: Scripts/updatePagesTeX.sh
       - name: Commit Change
-        uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+        uses: EndBug/add-and-commit@v9
         with:
           add: 'Src/Pages.tex'
           message: 'Update Src/Pages.tex'

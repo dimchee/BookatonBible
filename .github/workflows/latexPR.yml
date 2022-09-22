@@ -14,12 +14,17 @@ jobs:
       - name: Add LaTeX
         env:
           FILE: ${{ format( 'Src/Pages/{0}.tex', github.event.issue.title ) }}
+          COMMENT: |
+            cat << EOF
+            ${{ github.event.comment.body }}
+            EOF
         run: |
           mkdir -p Src/Pages
           touch Src/Pages.tex
-          cat > $FILE << EOF
-          ${{ github.event.comment.body }}
-          EOF
+          echo "Begin COMMENT"
+          echo $COMMENT
+          echo "End COMMENT"
+          echo $COMMENT > $FILE
           awk -i inplace '/\\begin{document}/{f=1; next} /\\end{document}/{f=0} f' $FILE
           # echo ${{ format('\\input{{Src/Pages/{0}}}', github.event.issue.title) }} \
           # | cat Src/Pages.tex - | sort -ur > Src/Pages.tex
@@ -28,4 +33,4 @@ jobs:
         with:
           branch: ${{ format( 'page-fix/{0}', github.event.issue.title) }} 
           title: ${{ format( 'Add LaTeX of pages {0}', github.event.issue.title ) }}
-          body: "Automated change, triggered by comment on Issue"
+          body: "Automated change, triggered by $\LaTeX$ comment on Issue"
